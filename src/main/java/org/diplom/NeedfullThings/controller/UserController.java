@@ -29,7 +29,7 @@ public class UserController {
     @PostMapping("/reg")
     public ResponseEntity<User> register(@RequestBody RequestUser user){
         try {
-            gateway.sendEmail("e.janedoe.87@gmail.com", user.getEmail(), "Test", "test email");
+            gateway.sendEmail("info@localhost", user.getEmail(), "Test", "test email");
             return ResponseEntity.ok(userService.addUser(user));
         }catch (EmailException e) {
             return ResponseEntity.badRequest().build();
