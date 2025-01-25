@@ -33,20 +33,6 @@ public class IntegrationConfig {
     @Transformer(inputChannel = "inputChannel", outputChannel = "outputChannel")
     public org.springframework.cglib.core.Transformer transformer(){
         return t -> t;
-//        return t -> handler(new Message() {
-//            @Override
-//            public Object getPayload() {
-//                return "test";
-//            }
-//
-//            @Override
-//            public MessageHeaders getHeaders() {
-//                Map<String, Object> headers = new HashMap<>();
-//                headers.put("from", "e.janedoe.87@gmail.com");
-//                headers.put("to", t);
-//                return new MessageHeaders(headers);
-//            }
-//        });
     }
 
     @Bean
