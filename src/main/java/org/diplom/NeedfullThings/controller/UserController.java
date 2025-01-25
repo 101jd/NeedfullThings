@@ -1,5 +1,6 @@
 package org.diplom.NeedfullThings.controller;
 
+import org.diplom.NeedfullThings.exceptions.EmailException;
 import org.diplom.NeedfullThings.model.market.RequestThing;
 import org.diplom.NeedfullThings.model.market.Thing;
 import org.diplom.NeedfullThings.model.users.RequestUser;
@@ -27,9 +28,12 @@ public class UserController {
 
     @PostMapping("/reg")
     public ResponseEntity<User> register(@RequestBody RequestUser user){
-        if (gateway.sendEmail("e.janedoe.87@gmail.com", user.getEmail(), "Test", "test email") != null)
+        try {
+            gateway.sendEmail("e.janedoe.87@gmail.com", user.getEmail(), "Test", "test email");
             return ResponseEntity.ok(userService.addUser(user));
-        return ResponseEntity.badRequest().build();
+        }catch (EmailException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PostMapping("/addc")

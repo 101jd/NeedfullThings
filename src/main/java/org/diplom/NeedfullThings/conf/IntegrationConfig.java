@@ -1,5 +1,6 @@
 package org.diplom.NeedfullThings.conf;
 
+import org.diplom.NeedfullThings.exceptions.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,14 +38,13 @@ public class IntegrationConfig {
 
     @Bean
     @ServiceActivator(inputChannel = "outputChannel")
-    public MailSendingMessageHandler handler(JavaMailSender sender) {
+    public MailSendingMessageHandler handler(JavaMailSender sender) throws EmailException {
 
 
         try{
             return new MailSendingMessageHandler(sender);
         } catch (Exception e){
-            e.printStackTrace();
-            return null;
+            throw new EmailException();
         }
     }
 
